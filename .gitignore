@@ -1,6 +1,14 @@
-*.class
+# Output folder
+target
 
-# Package Files #
+# Output files
+*.class
 *.jar
 *.war
 *.ear
+
+# IDE files
+.project
+.classpath
+.settings
+
