@@ -3,9 +3,10 @@ jgrep
 
 Easy to use java dependency analysis tool
 
+Usage
+-----
 ```
-Usage:
-    java -cp <classpath> com.mohankishore.jgrep.Main [-e] <pattern> {pattern}*
+java -cp <classpath> com.mohankishore.jgrep.Main [-e] <pattern> {pattern}*
 
 Where,
     classpath : standard java classpath 
@@ -18,7 +19,9 @@ Where,
                 expressions and used as Pattern.compile(p).matcher(str).matches()            
 ```
 
-And, the output looks something like this:
+Output
+------
+The output looks something like this:
 
 ```csv
 com/mohankishore/jgrep/Sample,,,extends,java/lang/Object,,
@@ -39,3 +42,18 @@ com/mohankishore/jgrep/Sample,staticMethod,(Ljava/io/DataInput;)Ljava/io/FileFil
 Basically, `<source>,<relationship>,<target>` - with both `source` and `target` being defined as a combination of `<class>,<member>,<signature>`.
 
 This allows the output to be easily analyzed by just looking at it for smaller codebases, and loaded into a database for more complex querying needs.
+
+
+Post processing
+---------------
+Some helper scripts to post-process the results:
+
+```bash
+# Prints out a class-to-class dependency table with the target class in the front
+cat sample-output.txt | awk -F, '{ print $5,"<-- ",$1; }' | sort | uniq -c
+```
+
+```bash
+# Prints out the number of times the target class+method was called
+cat sample-output.txt | awk -F, '{ if ($6) print $5, $6; }' | sort | uniq -c
+```
