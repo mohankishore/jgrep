@@ -3,9 +3,9 @@ jgrep
 
 Easy to use java dependency analysis tool
 
-Usage
------
-```
+### Usage
+
+```bash
 java -cp <classpath> com.mohankishore.jgrep.Main [-e] <pattern> {pattern}*
 
 Where,
@@ -19,8 +19,8 @@ Where,
                 expressions and used as Pattern.compile(p).matcher(str).matches()            
 ```
 
-Output
-------
+### Output
+
 The output looks something like this:
 
 ```csv
@@ -44,8 +44,8 @@ Basically, `<source>,<relationship>,<target>` - with both `source` and `target` 
 This allows the output to be easily analyzed by just looking at it for smaller codebases, and loaded into a database for more complex querying needs.
 
 
-Post processing
----------------
+### Post processing
+
 Some helper scripts to post-process the results:
 
 ```bash
