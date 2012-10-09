@@ -1,4 +1,4 @@
-package com.mohankishore.jgrep;
+package com.github.mohankishore.jgrep;
 
 import java.util.ArrayList;
 import java.util.List;

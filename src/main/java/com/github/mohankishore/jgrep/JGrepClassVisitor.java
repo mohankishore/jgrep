@@ -1,4 +1,4 @@
-package com.mohankishore.jgrep;
+package com.github.mohankishore.jgrep;
 
 import org.objectweb.asm.AnnotationVisitor;
 import org.objectweb.asm.Attribute;

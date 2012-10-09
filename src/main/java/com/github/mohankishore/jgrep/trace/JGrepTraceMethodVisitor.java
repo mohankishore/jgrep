@@ -1,4 +1,4 @@
-package com.mohankishore.jgrep.trace;
+package com.github.mohankishore.jgrep.trace;
 
 import java.util.Arrays;
 

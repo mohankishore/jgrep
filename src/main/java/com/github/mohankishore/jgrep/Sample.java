@@ -1,4 +1,4 @@
-package com.mohankishore.jgrep;
+package com.github.mohankishore.jgrep;
 
 import java.io.File;
 import java.io.IOException;
