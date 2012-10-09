@@ -5,6 +5,9 @@ Easy to use java dependency analysis tool
 
 ### Usage
 
+* Create a "lib" directory and copy all the JAR files you want processed into it
+* Download the jgrep jar file from github or the maven repo and place it in the above "lib" directory 
+
 ```bash
 java -cp <classpath> com.github.mohankishore.jgrep.Main [-e] <pattern> {pattern}*
 
@@ -12,11 +15,11 @@ Where,
     classpath : standard java classpath 
                 e.g. "./lib/*:./classes" 
     pattern   : <package>/<class>.<member>(<param-types>)<return-type>
-                e.g. "com/github/mohankishore/grep/Main.main([Ljava/lang/String;)V"
                 e.g. "com/github/mohankishore/"
+                e.g. "com/github/mohankishore/grep/Main.main([Ljava/lang/String;)V"
     -e        : By default, the pattern match is a simple str.startsWith(p)
-                When -e is specified, the strings are interpreted as regex
-                expressions and used as Pattern.compile(p).matcher(str).matches()  
+                When -e is specified, the strings are interpreted as regex expressions 
+                and evaluated as Pattern.compile(p).matcher(str).matches()  
                 e.g. "java\\/io\\/.*\\.close\\(.*"
 ```
 
