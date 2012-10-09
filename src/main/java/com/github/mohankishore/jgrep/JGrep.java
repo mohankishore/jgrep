@@ -48,6 +48,7 @@ public class JGrep {
     }
     
     protected void processJarFile(File jarFile, JGrepRecorder recorder) throws IOException {
+        if (jarFile.getName().startsWith("jgrep-")) return;
         JarFile jf = new JarFile(jarFile);
         for (Enumeration<JarEntry> en = jf.entries(); en.hasMoreElements();) {
             JarEntry je = en.nextElement();
