@@ -1,7 +1,8 @@
 jgrep
 =====
 
-Easy to use java dependency analysis tool
+Easy to use java dependency analysis tool. It can take a bunch of jar and/or class files and report on the usage of certain package/class/method that are of interest to you. Sample use-cases might involve trying to deprecate a class, or identifying all usages of some proprietary 3rd party library, etc.
+
 
 ### Usage
 
@@ -23,9 +24,17 @@ Where,
                 e.g. "java\\/io\\/.*\\.close\\(.*"
 ```
 
+Please note that the tool uses the excellent ASM (http://asm.ow2.org/) library to parse the class files, and expects the pattern to use the "internal format" for class-names used by the JVM (see: http://stackoverflow.com/a/6790621 for the basic overview, or http://docs.oracle.com/javase/specs/jvms/se7/html/jvms-4.html#jvms-4.2 for a formal definition):
+* use '/' instead of '.' for delimiting the packages (and the class)
+* use '.' to separate the class-name and the field/method-name
+* use `(<param-types>)<return-type>` - for method signatures
+* the param/return-type uses the "internal format" i.e. no commas; use I for int, F for Float, and so on; use `L<class-name>;` for non-primitive data-types
+* Finally, please note that all this is only needed if you wish to "grep" for a method. In most cases, a simple pattern like "java/io/" or "java/io/InputStream" will suffice.
+
+
 ### Output
 
-The output looks something like this:
+The tool iterates over each class file in the classpath (including those inside the JAR files) and reports on the matches at a field/method level i.e. both the source and the target are identified upto a field/method level granularity. The output is essentially formatted as `<src-class>,<src-field/method>,<src-signature>,  <relation>,  <dst-class>,<dst-field/method>,<dst-signature>`. This allows the output to be easily analyzed by just looking at it for smaller codebases, and loaded into a database for more complex querying needs.
 
 ```csv
 com/github/mohankishore/jgrep/Sample,,,extends,java/lang/Object,,
@@ -42,10 +51,6 @@ com/github/mohankishore/jgrep/Sample,staticMethod,(Ljava/io/DataInput;)Ljava/io/
 com/github/mohankishore/jgrep/Sample,staticMethod,(Ljava/io/DataInput;)Ljava/io/FileFilter;,hasLocalVariableOfType,java/io/DataInput,,
 ...
 ```
-
-Basically, `<source>,<relationship>,<target>` - with both `source` and `target` being defined as a combination of `<class>,<member>,<signature>`.
-
-This allows the output to be easily analyzed by just looking at it for smaller codebases, and loaded into a database for more complex querying needs.
 
 
 ### Post processing
